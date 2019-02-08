@@ -1,0 +1,17 @@
+
+libraries:
+  - .       # Test is run from the current path
+
+start:
+  - insert:
+      - { timestamp: "10/12/2009 14:56:10", hits: 30, hostname: localhost }
+
+  - export to influxdb:
+      url: 'http://localhost:8086/'
+      db_name': 'openpipe'
+      measurement: 'logs'
+      buffer_size' : 100,
+      tag_set: [ hostname ]
+      field_set: [ hits ]
+      timestamp_field_name: timestamp
+      timestamp_format: "%d/%m/%Y %H:%M:%S"
