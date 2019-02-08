@@ -32,7 +32,7 @@ influxdb-1.7.3-1/usr/bin/influx -execute 'create database openpipe'
 
 # Clone this repo, and run the test
 git clone https://github.com/openpipe-plugins/influxdb
-openpipe run test.yaml
+openpipe run test_pipeline.yaml
 
 # Check that the data was inserted as expected
 influxdb-1.7.3-1/usr/bin/influx -precision rfc3339  -database openpipe -execute 'select * from logs'

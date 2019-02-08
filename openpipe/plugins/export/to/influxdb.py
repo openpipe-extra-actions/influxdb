@@ -18,20 +18,12 @@ class Plugin(PluginRuntime):
     }
 
     def on_start(self, config):
-        seed()
-        self.tz = 
         self.buffer_size = config['buffer_size']
-        self.timezone = pytz.timezone(config['timestamp_zone'])
+        self.timezone = config.get('timestamp_zone', None)
         self.timestamp_field_name = config['timestamp_field_name']
-        self.counter = randint(0, 999)
-        if config['timestamp_random_ms_count']:
-            self.precision = 'ms'
-        else:
-            self.precision = config['precision']
-
         self.url = config['url']
         self.db_name = config['db_name']
-
+        self.precision = config['precision']
         self.data_lines = []
         self.session = requests.Session()
 
