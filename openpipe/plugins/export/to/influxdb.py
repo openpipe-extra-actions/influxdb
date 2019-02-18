@@ -17,7 +17,7 @@ class Plugin(PluginRuntime):
         'precision' : 's'
     }
 
-    def on_start(self, config):
+    def on_start(self, config, segment_resolver):
         self.buffer_size = config['buffer_size']
         self.timezone = config.get('timestamp_zone', None)
         self.timestamp_field_name = config['timestamp_field_name']
