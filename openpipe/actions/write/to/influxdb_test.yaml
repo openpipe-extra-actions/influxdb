@@ -1,5 +1,4 @@
-_libraries:
-    - .       # Test from the local version
+#
 
 start:
 
