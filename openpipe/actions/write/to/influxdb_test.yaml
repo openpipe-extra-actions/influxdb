@@ -1,0 +1,28 @@
+_libraries:
+    - .       # Test from the local version
+
+start:
+
+    - iterate:
+        -   hostname: localhost
+            load: 10
+            timestamp: 2019-03-31T15:00:01Z
+        -   hostname: otherhost
+            load: 15
+            timestamp: 2019-03-31T15:00:01Z
+
+
+# REQUIRED CONFIG
+    - write to influxdb:
+        tag_set:            [hostname] # list of keys to be used as InfluxDB tags
+        field_set:          [load]# list of keys to be used as InfluxDB fields
+        measurement:        CPU # Name of the measureament
+
+# OPTIONAL CONFIG
+        url: http://localhost:8086/ # InfluxDB instance endpoint
+        db_name: openpipe           # DB Name
+        timestamp_key: timestamp    # Name of input key containing the TS
+        time_zone: UTC              # Time zone from the received TS
+        time_format: auto           # strftime format of the input
+        buffer_size: 1              # Max size for batch loading
+        precision: s                # Precision to use on the TS
