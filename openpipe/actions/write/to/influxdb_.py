@@ -3,7 +3,7 @@ Write data to an InfluxDB instance
 """
 import sys
 import requests
-import dateutil
+import dateutil.parser
 from pytz import timezone, UTC
 from calendar import timegm
 from datetime import datetime
@@ -94,7 +94,10 @@ class Action(ActionRuntime):
                 timestamp = dateutil.parser.parse(timestamp)
             else:
                 timestamp = datetime.strptime(timestamp, self.config["time_format"])
-            local_timestamp = self.timezone.localize(timestamp)
+            if timestamp.tzinfo is None:
+                local_timestamp = self.timezone.localize(timestamp)
+            else:
+                local_timestamp = timestamp
             timestamp = local_timestamp.astimezone(UTC)
             timestamp = timestamp.strftime("%s")
             return timestamp
